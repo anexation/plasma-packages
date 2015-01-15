@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kalarmcal
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="The KAlarm client library"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kalarmcal"
+license=('LGPL')
+depends=('kidentitymanagement' 'kholidays' 'kdepimlibs-frameworks')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'python' 'boost')
+conflicts=("kalarmcal-git")
+provides=("kalarmcal" "kalarmcal-git")
+replaces=('kalarmcal-git')
+source=("git://anongit.kde.org/kalarmcal.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kalarmcal \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,37 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kdepimlibs-frameworks
+pkgver=14.12.1
+pkgrel=1
+pkgdesc="KDE PIM Libraries"
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/kdepimlibs'
+license=('GPL' 'LGPL')
+depends=('akonadi-frameworks' 'kcalcore' 'kldap' 'kmbox' 'prison-frameworks')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python' 'boost')
+conflicts=('kdepimlibs' 'kdepimlibs-git')
+replaces=('kdepimlibs-git')
+provides=('kdepimlibs-frameworks' 'kdepimlibs-git')
+install=kdepimlibs.install
+source=('git://anongit.kde.org/kdepimlibs.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kdepimlibs \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTS=OFF
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kholidays
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="KDE library for regional holiday information"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kholidays"
+license=('LGPL')
+depends=('kdelibs4support')
+makedepends=('extra-cmake-modules' 'git' 'python')
+conflicts=("kholidays-git")
+provides=("kholidays" "kholidays-git")
+replaces=("kholidays-git")
+source=("git://anongit.kde.org/kholidays.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kholidays \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

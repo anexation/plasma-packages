@@ -1,0 +1,37 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=akonadi-search
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Libraries and daemons to implement searching in Akonadi"
+url='https://projects.kde.org/projects/playground/pim/akonadi-search'
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('xapian-core' 'kdepimlibs-frameworks')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+provides=('akonadi-search' 'akonadi-search-git')
+conflicts=('akonadi-search-git')
+replaces=('akonadi-search-git')
+source=("git://anongit.kde.org/akonadi-search")
+sha1sums=('SKIP')
+
+prepare() {
+  rm -fr build
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../akonadi-search \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  make -C build DESTDIR=${pkgdir} install
+}
+

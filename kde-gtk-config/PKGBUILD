@@ -1,0 +1,38 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kde-gtk-config-frameworks
+pkgver=2.9.99
+pkgrel=1
+pkgdesc='GTK2 and GTK3 Configurator for KDE'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/workspace/kde-gtk-config'
+license=('LGPL')
+depends=('kcmutils' 'knewstuff')
+makedepends=('extra-cmake-modules' 'git' 'gtk2' 'gtk3')
+conflicts=('kde-gtk-config-git' 'kde-gtk-config')
+provides=('kde-gtk-config-frameworks' 'kde-gtk-config-git')
+replaces=('kde-gtk-config-git')
+install=kde-gtk-config.install
+source=('git://anongit.kde.org/kde-gtk-config.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kde-gtk-config \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

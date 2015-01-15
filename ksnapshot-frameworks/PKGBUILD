@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=ksnapshot
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='Screen Capture Program'
+arch=('i686' 'x86_64')
+url='http://kde.org/applications/graphics/ksnapshot/'
+license=('GPL')
+depends=('libkipi-frameworks' 'kparts')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python')
+conflicts=('kdegraphics-ksnapshot' 'ksnapshot' 'ksnapshot-frameworks-git')
+provides=('ksnapshot' 'ksnapshot-frameworks-git')
+replaces=('ksnapshot-frameworks-git')
+source=("git://anongit.kde.org/ksnapshot.git#branch=frameworks")
+install=$pkgname.install
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() { 
+  cd build
+  cmake ../ksnapshot \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kcalutils
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="The KDE calendar utility library"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kcalutils"
+license=('LGPL')
+depends=('kcalcore' 'kidentitymanagement')
+makedepends=('extra-cmake-modules' 'git' 'python' 'boost')
+conflicts=("kcalutils-git")
+provides=("kcalutils" "kcalutils-git")
+replaces=("kcalutils-git")
+source=("git://anongit.kde.org/kcalutils.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kcalutils \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

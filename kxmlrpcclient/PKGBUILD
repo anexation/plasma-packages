@@ -1,0 +1,35 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kxmlrpcclient
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="XML-RPC client library for KDE"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kxmlrpcclient"
+license=('LGPL')
+depends=('kio')
+makedepends=('extra-cmake-modules' 'git' 'python')
+conflicts=("kxmlrpcclient-git")
+provides=("kxmlrpcclient" "kxmlrpcclient-git")
+replaces=('kxmlrpcclient-git')
+source=("git://anongit.kde.org/kxmlrpcclient.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kxmlrpcclient \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

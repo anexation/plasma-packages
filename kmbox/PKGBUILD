@@ -1,0 +1,35 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kmbox
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Library for accessing mail storages in MBox format"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kmbox"
+license=('LGPL')
+depends=('kmime')
+makedepends=('extra-cmake-modules' 'git' 'python' 'boost')
+conflicts=("kmbox-git")
+provides=("kmbox" "kmbox-git")
+replaces=('kmbox-git')
+source=("git://anongit.kde.org/kmbox.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kmbox \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,11 @@
+
+#ifndef KBLOG_VERSION_H
+#define KBLOG_VERSION_H
+
+#define KBLOG_VERSION_STRING "4.79.0"
+#define KBLOG_VERSION_MAJOR 4
+#define KBLOG_VERSION_MINOR 79
+#define KBLOG_VERSION_PATCH 0
+#define KBLOG_VERSION ((4<<16)|(79<<8)|(0))
+
+#endif

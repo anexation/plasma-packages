@@ -1,0 +1,35 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kimap
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Job-based API for interacting with IMAP servers"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kimap"
+license=('LGPL')
+depends=('kmime')
+makedepends=('extra-cmake-modules' 'git' 'python' 'boost')
+conflicts=("kimap-git")
+provides=("kimap" "kimap-git")
+replaces=('kimap-git')
+source=("git://anongit.kde.org/kimap.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kimap \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

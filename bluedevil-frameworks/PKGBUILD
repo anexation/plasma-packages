@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=bluedevil-frameworks
+pkgver=2.1.1
+pkgrel=1
+pkgdesc='KDE bluetooth framework'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/extragear/base/bluedevil'
+license=('GPL2')
+depends=('bluez' 'libbluedevil-frameworks' 'kio')
+makedepends=('extra-cmake-modules' 'git')
+provides=('bluedevil-frameworks' 'bluedevil-frameworks-git')
+conflicts=('bluedevil-frameworks' 'bluedevil' 'bluedevil-frameworks-git')
+replaces=('bluedevil-frameworks-git')
+install=$pkgname.install
+source=("git://anongit.kde.org/bluedevil.git#branch=frameworks")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../bluedevil \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

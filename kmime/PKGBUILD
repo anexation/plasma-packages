@@ -1,0 +1,35 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kmime
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Library for handling mail messages and newsgroup articles"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kmime"
+license=('LGPL')
+depends=('kdelibs4support')
+makedepends=('extra-cmake-modules' 'git' 'python' 'boost')
+conflicts=("kmime-git")
+provides=("kmime" "kmime-git")
+replaces=('kmime-git')
+source=("git://anongit.kde.org/kmime.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kmime \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

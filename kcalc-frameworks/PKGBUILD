@@ -1,0 +1,38 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kcalc-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Scientific Calculator. KF5 Frameworks branch."
+url="https://www.kde.org/applications/utilities/kcalc"
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kxmlgui' 'knotifications')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kdeutils-kcalc' 'kcalc' 'kcalc-frameworks-git')
+provives=('kcalc' 'kcalc-frameworks' 'kcalc-frameworks-git')
+replaces=('kcalc-frameworks-git')
+source=("git://anongit.kde.org/kcalc.git#branch=frameworks")
+sha1sums=('SKIP')
+install="kcalc-frameworks.install"
+_pkgname=kcalc
+
+prepare() {
+  rm -fr build
+  mkdir -p build
+}
+
+build() {
+  cd build
+
+  cmake "../${_pkgname}" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  make -C build DESTDIR="${pkgdir}" install
+}

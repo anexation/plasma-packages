@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=libkipi-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="A interface to use kipi-plugins from a KDE image management program like digiKam. KF5 Frameworks branch"
+url='http://www.digikam.org/sharedlibs'
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kio')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'cmake')
+conflicts=('libkipi' 'libkipi-frameworks-git')
+provides=('libkipi' 'libkipi-frameworks' 'libkipi-frameworks-git')
+replaces=('libkipi-frameworks-git')
+source=("git://anongit.kde.org/libkipi#branch=frameworks")
+sha1sums=('SKIP')
+install="libkipi-frameworks.install"
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../libkipi \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  make -C build DESTDIR="${pkgdir}" install
+}
+

@@ -1,0 +1,37 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=ark-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='Archiving Tool'
+arch=('i686' 'x86_64')
+url='http://kde.org/applications/utilities/ark/'
+license=('GPL')
+depends=('kpty' 'kdelibs4support' 'khtml' 'libkonq-frameworks' 'libarchive')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python')
+optdepends=('p7zip' 'zip' 'unzip' 'unrar')
+conflicts=('kdeutils-ark' 'ark' 'ark-frameworks')
+provides=('ark' 'ark-frameworks-git')
+replaces=('ark-frameworks-git')
+install=$pkgname.install
+source=("git://anongit.kde.org/ark.git#branch=frameworks")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() { 
+  cd build
+  cmake ../ark \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

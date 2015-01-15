@@ -1,0 +1,49 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kdepim-frameworks
+_pkgname=kdepim
+arch=('x86_64')
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Project that aims to bring together anything to do with personal information management."
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+depends=('grantlee-qt5' 'phonon-qt5' 'qt5-tools' 'prison-frameworks' 'libkgapi-frameworks'
+         'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 
+         'knotifyconfig' 'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 
+         'ktexteditor' 'kdnssd' 'kcodecs' 'kglobalaccel' 'sonnet' 
+         'kcontacts' 'kcalcore' 'kidentitymanagement' 'kldap' 'kmailtransport' 'kcalutils' 
+         'kontactinterface' 'kholidays' 'ktnef-frameworks' 'kimap' 'kmbox' 'akonadi-calendar' 
+         'kde-syndication' 'gpgmepp' 'kalarmcal' 'kmime' 'kdepim-runtime-frameworks'
+         'kxmlrpcclient' 'kblog' 'kdepimlibs-frameworks' 'akonadi-search')
+makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'git' 'kdepim-runtime-frameworks')
+conflicts=('kdepim' 'kdepim-git')
+replaces=('kdepim' 'kdepim-git')
+provides=('kdepim' 'kdepim-git')
+source=("git://anongit.kde.org/kdepim.git")
+sha256sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  #sed -i 's|KF5::AkonadiPrivate|KF5::KF5AkonadiPrivate|' ${srcdir}/$_pkgname/akonadi_next/CMakeLists.txt
+
+  mkdir build
+  
+  cd build 
+  cmake ../${_pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt/plugins \
+    -DKDEPIM_BUILD_MOBILE=FALSE
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}

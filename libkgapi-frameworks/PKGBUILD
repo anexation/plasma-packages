@@ -1,0 +1,34 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=libkgapi-frameworks
+pkgver=2.2.0
+pkgrel=1
+pkgdesc="A KDE-based library for accessing various Google services via their public API. KF5 Frameworks branch"
+url='http://www.dvratil.cz/category/akonadi-google/'
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kdepimlibs-git')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'cmake')
+conflicts=('libkgapi' 'libkgapi-frameworks-git')
+provides=('libkgapi' 'libkgapi-frameworks' 'libkgapi-frameworks-git')
+source=("git://anongit.kde.org/libkgapi#branch=frameworks")
+sha1sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../libkgapi \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  make -C build DESTDIR="${pkgdir}" install
+}
+

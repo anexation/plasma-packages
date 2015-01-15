@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=gwenview-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='A fast and easy to use image viewer for KDE'
+arch=('i686' 'x86_64')
+url='http://kde.org/applications/graphics/gwenview/'
+license=('GPL')
+depends=('kactivities-frameworks' 'kdelibs4support' 'exiv2' 'libkdcraw-frameworks' 'libkipi-frameworks')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python')
+conflicts=('kdegraphics-gwenview' 'gwenview' 'gwenview-git')
+provides=('gwenview' 'gwenview-frameworks' 'gwenview-frameworks-git')
+replaces=('gwenview-git')
+source=("git://anongit.kde.org/gwenview.git")
+install=gwenview.install
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() { 
+  cd build
+  cmake ../gwenview \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

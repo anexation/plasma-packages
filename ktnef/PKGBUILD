@@ -1,0 +1,36 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=ktnef-frameworks
+_pkgname=ktnef
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="API for handling TNEF data"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/$_pkgname"
+license=('LGPL')
+depends=('kcalutils' 'kcontacts')
+makedepends=('extra-cmake-modules' 'git' 'python')
+conflicts=("kdepim-ktnef" "ktnef-git")
+provides=("ktnef" "ktnef-frameworks" "ktnef-git")
+replaces=('ktnef-git')
+source=("git://anongit.kde.org/$_pkgname.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../$_pkgname \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kpimtextedit
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="A textedit with PIM-specific features"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kpimtextedit"
+license=('LGPL')
+depends=('kdelibs4support')
+makedepends=('extra-cmake-modules' 'git' 'python' 'kdoctools')
+conflicts=("kpimtextedit-git")
+provides=("kpimtextedit" "kpimtextedit-git")
+replaces=('kpimtextedit-git')
+source=("git://anongit.kde.org/kpimtextedit.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kpimtextedit \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

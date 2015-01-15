@@ -1,0 +1,35 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kde-syndication
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="RSS/Atom parser library"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/$_gitname"
+license=('LGPL')
+depends=('kio')
+makedepends=('extra-cmake-modules' 'git' 'python')
+conflicts=("kde-syndication-git")
+provides=("kde-syndication" "kde-syndication-git")
+conflicts=('kde-syndication-git')
+source=("git://anongit.kde.org/syndication.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../syndication \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

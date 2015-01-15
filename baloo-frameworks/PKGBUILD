@@ -1,0 +1,37 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=baloo-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="A framework for searching and managing metadata"
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/kdelibs/baloo'
+license=('LGPL')
+depends=('xapian-core' 'kfilemetadata5' 'kidletime' 'kdelibs4support')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python')
+provides=('baloo-frameworks' 'baloo-git' 'baloo')
+conflicts=('baloo-frameworks-git' 'baloo4')
+replaces=('baloo-git')
+install=baloo.install
+source=('git://anongit.kde.org/baloo.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../baloo \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

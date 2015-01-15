@@ -1,0 +1,123 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgbase=kde-baseapps
+pkgname=('dolphin-frameworks' 'konqueror-frameworks' 'kdepasswd-frameworks' 'kdialog-frameworks' 'kfind-frameworks' 
+'keditbookmarks-frameworks' 'libkonq-frameworks' 'konq-plugins-frameworks')
+pkgver=14.12.1
+pkgrel=1
+pkgdesc="Collection of applications used for file and Internet browsing."
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/applications/kde-baseapps'
+license=('LGPL')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'kdesu' 'kdelibs4support' 'kactivities-frameworks' 'knewstuff' 'baloo-widgets-frameworks' 'python')
+provides=('kde-baseapps' 'kde-baseapps-git')
+replaces=('kde-baseapps-git')
+conflicts=('kde-baseapps-git')
+source=('git://anongit.kde.org/kde-baseapps#branch=frameworks')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kde-baseapps \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package_dolphin-frameworks() {
+	pkgdesc='File Manager'
+	depends=('baloo-widgets-frameworks' 'libkonq-frameworks' 'knewstuff' 'kio-extras' 'kcmutils')
+	optdepends=('ruby: installing service menus form GHNS')
+	url="http://kde.org/applications/system/dolphin/"
+	conflicts=('kdebase-dolphin' 'dolphin' 'dolphin-frameworks-git')
+	provides=('dolphin' 'dolphin-frameworks' 'dolphin-frameworks-git')
+	replaces=('dolphin-frameworks-git')
+	install=$pkgbase.install
+	cd $srcdir/build/dolphin
+	make DESTDIR="$pkgdir" install
+}
+
+package_konqueror-frameworks() {
+	pkgdesc='KDE File Manager & Web Browser'
+	depends=('keditbookmarks-frameworks' 'dolphin-frameworks' 'kded')
+	url="http://kde.org/applications/system/konqueror/"
+	conflicts=('kdebase-konqueror' 'konqueror' 'konqueror-frameworks-git')
+	provides=('konqueror' 'konqueror-frameworks' 'konqueror-frameworks-git')
+	replaces=('konqueror-frameworks-git')
+	install=$pkgbase.install
+	cd $srcdir/build/konqueror
+	make DESTDIR="$pkgdir" install
+}
+
+package_kdepasswd-frameworks() {
+	pkgdesc='Change Password'
+	depends=('libkonq-frameworks' 'kdesu')
+        conflicts=('kdebase-kdepasswd' 'kdepasswd' 'kdepasswd-frameworks-git')
+        provides=('kdepasswd' 'kdepasswd-frameworks' 'kdepasswd-frameworks-git')
+        replaces=('kdepasswd-frameworks-git')
+	cd $srcdir/build/kdepasswd
+	make DESTDIR="$pkgdir" install
+}
+
+package_kdialog-frameworks() {
+	pkgdesc='A utility for displaying dialog boxes from shell scripts'
+	depends=('kdelibs4support')
+        conflicts=('kdebase-kdialog' 'kdialog' 'kdialog-frameworks-git')
+        provides=('kdialog' 'kdialog-frameworks' 'kdialog-frameworks-git')
+        replaces=('kdialog-frameworks-git')
+	cd $srcdir/build/kdialog
+	make DESTDIR="$pkgdir" install
+}
+
+package_kfind-frameworks() {
+	pkgdesc='Find Files/Folders'
+	depends=('libkonq-frameworks')
+        conflicts=('kdebase-kfind' 'kfind' 'kfind-frameworks-git')
+        provides=('kfind' 'kfind-frameworks' 'kfind-frameworks-git')
+        replaces=('kfind-frameworks')
+	url="http://kde.org/applications/utilities/kfind/"
+	install=$pkgbase.install
+	cd $srcdir/build/kfind
+	make DESTDIR="$pkgdir" install
+}
+
+package_keditbookmarks-frameworks() {
+        pkgdesc='Bookmark organizer and editor'
+        depends=('libkonq-frameworks')
+        conflicts=('kdebase-keditbookmarks' 'keditbookmarks' 'keditbookmarks-frameworks-git')
+        provides=('keditbookmarks' 'keditbookmarks-frameworks' 'keditbookmarks-frameworks-git')
+        replaces=('keditbookmarks-frameworks-git')
+        url="http://www.kde.org/"
+	install=$pkgbase.install
+        cd $srcdir/build/keditbookmarks
+        make DESTDIR="$pkgdir" install
+}
+
+package_libkonq-frameworks() {
+	pkgdesc='KDE libraries for the basic desktop applications'
+	depends=('kdelibs4support')
+	conflicts=('kdebase-lib' 'libkonq-frameworks-git')
+	provides=('libkonq-frameworks' 'libkonq-frameworks-git')
+	replaces=('libkonq-frameworks-git')
+	cd $srcdir/build/lib
+	make DESTDIR="$pkgdir" install
+}
+
+package_konq-plugins-frameworks() {
+        pkgdesc='Extra plugins for Konqueror'
+        depends=('kdelibs4support')
+        conflicts=('kdebase-konq-plugins' 'konq-plugins' 'konq-plugins-frameworks-git')
+        provides=('konq-plugins' 'konq-plugins-frameworks' 'konq-plugins-frameworks-git')
+        replaces=('konq-plugins-frameworks-git')
+        install=$pkgbase.install
+        cd $srcdir/build/konq-plugins
+        make DESTDIR="$pkgdir" install
+}
+

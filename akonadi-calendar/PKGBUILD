@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=akonadi-calendar
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Akonadi calendar integration"
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/pim/akonadi-calendar'
+license=('LGPL')
+depends=('kdelibs4support' 'kcodecs' 'kio' 'kwallet' 'kmailtransport' 'kcontacts' 'kcalcore' 'kidentitymanagement' 'kcalutils' 'akonadi-frameworks' 'kdepimlibs-frameworks')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'python')
+conflicts=("akonadi-calendar-git")
+provides=("akonadi-calendar" "akonadi-calendar-git")
+replaces=("akonadi-calendar-git")
+source=("git://anongit.kde.org/akonadi-calendar.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../akonadi-calendar \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

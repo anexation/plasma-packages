@@ -1,0 +1,35 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kblog
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="A blogging library for KDE"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kblog"
+license=('LGPL')
+depends=('kxmlrpcclient' 'kde-syndication' 'kcalcore')
+makedepends=('extra-cmake-modules' 'git' 'python')
+conflicts=("kblog-git")
+provides=("kblog" "kblog-git")
+replaces=('kblog-git')
+source=("git://anongit.kde.org/kblog.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kblog \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

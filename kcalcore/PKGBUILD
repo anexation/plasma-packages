@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kcalcore
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="The KDE calendar access library"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kcalcore"
+license=('LGPL')
+depends=('libical' 'kdelibs4support')
+makedepends=('extra-cmake-modules' 'git' 'python')
+conflicts=("kcalcore-git")
+provides=("kcalcore" "kcalcore-git")
+replaces=('kcalcore-git')
+source=("git://anongit.kde.org/kcalcore.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kcalcore \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

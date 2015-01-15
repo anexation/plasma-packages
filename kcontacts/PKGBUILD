@@ -1,0 +1,35 @@
+# Maintainer anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kcontacts
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Address book API for KDE"
+arch=('i686' 'x86_64')
+url="https://projects.kde.org/projects/kde/pim/kcontacts"
+license=('LGPL')
+depends=('kcoreaddons' 'kconfig' 'ki18n' 'kcodecs')
+makedepends=('extra-cmake-modules' 'git' 'python')
+conflicts=("kcontacts-git")
+provides=("kcontacts" "kcontacts-git")
+replaces=('kcontacts-git')
+source=("git://anongit.kde.org/kcontacts.git")
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kcontacts \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

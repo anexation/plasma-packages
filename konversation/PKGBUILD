@@ -1,0 +1,39 @@
+# Maintainer : anex <lane.wiscombe[@]gmail.com
+
+pkgname=konversation-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="A user friendly IRC client for KF5 Frameworks."
+arch=('x86_64' 'i686')
+url="http://konversation.kde.org"
+makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'python')
+depends=('knotifyconfig' 'kemoticons' 'kparts' 'kidletime' 'qca-qt5')
+optdepends=('python: python scripting support')
+conflicts=('konversation-git' 'konversation')
+provides=('konversation' 'konversation-git' 'konversation-frameworks')
+replaces=('konversation-git')
+license=('GPL2' 'FDL')
+install=konversation.install
+source=('git://anongit.kde.org/konversation')
+sha1sums=('SKIP')
+
+prepare() {
+  rm -fr build
+  mkdir -p build
+}
+
+build() {
+  cd build
+
+  cmake ../konversation \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DLIB_INSTALL_DIR=lib \
+      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}
