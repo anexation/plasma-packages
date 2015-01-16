@@ -1,24 +1,19 @@
-# Maintainer: Gustavo Alvarez <sl1pkn07@gmail.com>
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
 
-pkgname=skanlite-frameworks-git
-pkgver=r206.02c87e6
+pkgname=skanlite-frameworks
+pkgver=5.1.99
 pkgrel=1
 pkgdesc="A Lite image scanning application. KF5 Frameworks branch (GIT version)"
 arch=('i686' 'x86_64')
 url="http://www.kde.org/applications/graphics/skanlite"
 license=('GPL')
-depends=('libksane-frameworks-git' 'kio')
+depends=('libksane-frameworks' 'kio')
 makedepends=('cmake' 'git' 'extra-cmake-modules' 'python')
-conflicts=('skanlite')
-provides=('skanlite')
+conflicts=('skanlite' 'skanlite-frameworks-git')
+provides=('skanlite' 'skanlite-frameworks' 'skanlite-frameworks-git')
+replaces=('skanlite-frameworks-git')
 source=('git://anongit.kde.org/skanlite#branch=frameworks')
 sha1sums=('SKIP')
-_gitname="skanlite"
-
-pkgver() {
-  cd "${_gitname}"
-  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-}
 
 prepare() {
   rm -fr build
@@ -27,7 +22,7 @@ prepare() {
 
 build() { 
   cd build
-  cmake "../${_gitname}" \
+  cmake ../skanlite \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

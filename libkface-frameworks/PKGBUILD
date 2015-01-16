@@ -1,0 +1,33 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=libkface-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='A Qt/C++ wrapper around LibFace library to perform face recognition and detection over pictures. KF5 Frameworks branch'
+arch=('i686' 'x86_64')
+url='http://www.kde.org'
+license=('GPL' 'LGPL' 'FDL')
+depends=('opencv' 'ki18n')
+makedepends=('git' 'cmake' 'extra-cmake-modules' 'kdoctools')
+conflicts=('libkface' 'libkface-frameworks-git')
+provides=('libkface' 'libkface-frameworks' 'libkface-frameworks-git')
+replaces=('libkface-frameworks-git')
+sha1sums=('SKIP')
+source=('libkface::git+git://anongit.kde.org/libkface#branch=frameworks')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../libkface \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  make -C build DESTDIR="${pkgdir}" install
+}

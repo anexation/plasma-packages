@@ -1,7 +1,4 @@
-# Maintainer: Antonio Rojas <arojas@archlinux.org>
-# Contributor: Christian Bühler <christian.buehler@ipoplan.de>
-# Contributor: Andrea Scarpino <andrea@archlinux.org>
-# Contributor: Pierre Schmitz <pierre@archlinux.de>
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=qca-qt5
 pkgver=2.1.0.3

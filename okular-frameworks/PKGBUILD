@@ -1,7 +1,7 @@
-# Maintainer: Antonio Rojas 
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
 
-pkgname=okular-frameworks-git
-pkgver=r6959.f6df673
+pkgname=okular-frameworks
+pkgver=5.1.99
 pkgrel=1
 pkgdesc='Universal document viewer'
 arch=('i686' 'x86_64')
@@ -11,16 +11,12 @@ depends=('kpty' 'kdelibs4support' 'threadweaver' 'kactivities-frameworks' 'khtml
 'libkscreen-frameworks' 'libkexiv2-frameworks-git')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'python' 'ebook-tools' 'qca-qt5')
 optdepends=('ebook-tools: mobi and epub support' 'qca-qt5: support for encrypted ODF documents')
-conflicts=('kdegraphics-okular' 'okular')
-provides=('okular')
+conflicts=('kdegraphics-okular' 'okular' 'okular-frameworks-git')
+provides=('okular' 'okular-frameworks' 'okular-frameworks-git')
+replaces=('okular-frameworks-git')
 source=("git://anongit.kde.org/okular.git#branch=frameworks")
 install=$pkgname.install
 sha256sums=('SKIP')
-
-pkgver() {
-  cd okular
-  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-}
 
 prepare() {
   mkdir -p build

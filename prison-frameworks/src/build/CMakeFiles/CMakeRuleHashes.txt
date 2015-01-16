@@ -1,4 +1,0 @@
-# Hashes of file build rules.
-84f5c2cd8bbd6e8f935677791a90c8e3 lib/prison/CMakeFiles/KF5Prison_automoc
-ba7c2849d66c6a169d63c921d5440013 testapp/CMakeFiles/test-prison_automoc
-c8c10b8427803a99619eb57266294550 tools/CMakeFiles/prison-datamatrix_automoc

@@ -1,0 +1,41 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=digikam-frameworks
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='Digital photo management application for KDE. KF5 Frameworks branch'
+arch=('i686' 'x86_64')
+license=('GPL')
+url="http://www.digikam.org/"
+depends=('libkdcraw-frameworks'  'libkexiv2-frameworks'  'libkipi-frameworks' 'libkface-frameworks' 'libkgeomap-frameworks'
+         'kdelibs4support' 'knotifyconfig' 'lensfun' 'libpgf' 'libgphoto2' 'liblqr' 'sqlite2')
+makedepends=('eigen' 'doxygen' 'boost' 'extra-cmake-modules' 'kdoctools' 'git')
+optdepends=('kipi-plugins-frameworks: for more tools and plugins')
+conflicts=('digikam' 'digikam-frameworks-git')
+provides=('digikam' 'digikam-frameworks' 'digikam-frameworks-git')
+replaces=('digikam-frameworks-git')
+install=digikam-frameworks.install
+source=('git://anongit.kde.org/digikam.git#branch=frameworks')
+sha1sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake  ../digikam \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF \
+    -DENABLE_MYSQLSUPPORT=ON \
+    -DENABLE_LCMS2=ON \
+    -DENABLE_MEDIAPLAYER=OFF
+  make
+}
+
+package() {
+  make -C build DESTDIR="${pkgdir}" install
+}

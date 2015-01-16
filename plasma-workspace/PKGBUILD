@@ -1,0 +1,42 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=plasma-workspace
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='KDE Plasma Workspace'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/kde-workspace'
+license=('LGPL')
+depends=('qt5-tools' 'kded' 'libksysguard' 'kjsembed' 'knotifyconfig' 'ktexteditor' 'kde-cli-tools' 
+'kio-extras' 'baloo-frameworks' 'milou' 'libkscreen-frameworks' 'breeze' 'kwin' 'gpsd' 'libqalculate' 'khelpcenter' 'xorg-xrdb' 
+'xorg-xsetroot' 'xorg-xmessage') # 'prison-frameowrks'
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+optdepends=('plasma-workspace-wallpapers: additional wallpapers')
+conflicts=('plasma-workspace-git' 'kdebase-workspace')
+provides=('plasma-workspace' 'plasma-workspace-git')
+replaces=('plasma-workspace-git')
+options=()
+source=('git://anongit.kde.org/plasma-workspace.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../plasma-workspace \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+
+  sed 's:qtpaths:qtpaths-qt5:' -i "$pkgdir"/usr/bin/startkde
+}

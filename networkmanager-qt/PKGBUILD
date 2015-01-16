@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=networkmanager-qt
+pkgver=5.6.0.1
+pkgrel=1
+pkgdesc='Qt-only wrapper for NetworkManager DBus API'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/extragear/libs/libnm-qt'
+license=('LGPL')
+depends=('qt5-base' 'networkmanager')
+makedepends=('extra-cmake-modules' 'git')
+conflicts=('libnm-qt5' 'networkmanager-qt' 'libnm-qt-git')
+provides=('libnm-qt5' 'networkmanager-qt' 'networkmanager-qt-git')
+replaces=('libnm-qt-git' 'networkmanager-qt-git')
+source=("git://anongit.kde.org/networkmanager-qt.git")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../networkmanager-qt \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

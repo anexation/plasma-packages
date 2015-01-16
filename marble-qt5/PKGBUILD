@@ -1,0 +1,47 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=marble-qt5
+pkgver=4.13.80
+pkgrel=1
+pkgdesc="A Virtual Globe and World Atlas. Qt5 Build"
+arch=('i686' 'x86_64')
+url="https://www.kde.org/applications/system/marble"
+license=('GPL')
+conflicts=('marble' 'marble-qt5-git')
+provides=('marble' 'marble-qt5' 'marble-qt5-git')
+replaces=('marble-qt5-git')
+depends=('qt5-script' 'qt5-svg' 'qt5-webkit' 'opencv')
+makedepends=('cmake' 'git' 'extra-cmake-modules' 'gpsd' 'quazip' 'shapelib'  'qextserialport' 'libwlocate')
+optdepends=('gpsd: position information via gpsd'
+            'quazip: reading and displaying .kmz files'
+            'shapelib: reading and displaying .shp files'
+            'qextserialport: eading from serial port in APRS plugin'
+            'libwlocate: Position information based on neighboring WLAN networks')
+source=('git://anongit.kde.org/marble.git')
+sha1sums=('SKIP')
+install=marble-qt5.install
+
+prepare() {
+  rm -fr build
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../marble \
+    -DQT5BUILD=1 \
+    -DQTONLY=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_MARBLE_EXAMPLES=YES \
+    -DBUILD_MARBLE_TOOLS=YES \
+    -DBUILD_MARBLE_TESTS=NO \
+    -DQEXTSERIALPORT_INCLUDE_DIR=/usr/include/qt/QtExtSerialPort \
+    -DQEXTSERIALPORT_LIBRARIES=/usr/lib/libQt5ExtSerialPort.so.1.2.0 \
+    -DPHONON_INCLUDE_DIR=/usr/include/phonon4qt5/
+  make
+}
+
+package() {
+  make -C build DESTDIR="${pkgdir}" install
+}

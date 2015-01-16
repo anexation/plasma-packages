@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=powerdevil
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='KDE power management tools'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/kde-workspace'
+license=('LGPL')
+depends=('plasma-workspace')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+conflicts=('powerdevil-git')
+provides=('powerdevil' 'powerdevil-git')
+replaces=('powerdevil-git')
+source=('git://anongit.kde.org/powerdevil.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../powerdevil \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DSYSCONF_INSTALL_DIR=/etc
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="${pkgdir}" install
+}

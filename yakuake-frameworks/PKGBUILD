@@ -1,25 +1,20 @@
-# Maintainer: Gustavo Alvarez <sl1pkn07@gmail.com>
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
 
-pkgname=yakuake-frameworks-git
-pkgver=v2.9.9.66.gff8e6de
+pkgname=yakuake-frameworks
+pkgver=2.9.99
 pkgrel=1
-pkgdesc="A drop-down terminal emulator based on KDE Konsole technology. KF5 Frameworks branch (GIT version)"
+pkgdesc="A drop-down terminal emulator based on KDE Konsole technology. KF5 Frameworks branch"
 arch=('i686' 'x86_64')
 url="https://www.kde.org/applications/system/yakuake"
 license=('GPL')
-conflicts=('yakuake')
-provides=('yakuake')
-depends=('knotifyconfig' 'kparts' 'knewstuff' 'konsole-git')
+conflicts=('yakuake' 'yakuake-frameworks-git')
+provides=('yakuake' 'yakuake-frameworks' 'yakuake-frameworks-git')
+replaces=('yakuake-frameworks-git')
+depends=('knotifyconfig' 'kparts' 'knewstuff' 'konsole')
 makedepends=('cmake' 'git' 'extra-cmake-modules')
 source=('git://anongit.kde.org/yakuake.git#branch=frameworks')
 sha1sums=('SKIP')
-_gitname=yakuake
-install=yakuake-frameworks-git.install
-
-pkgver() {
-  cd "${_gitname}"
-  echo "$(git describe --long --tags | tr - .)"
-}
+install=yakuake-frameworks.install
 
 prepare() {
   rm -fr build
@@ -28,7 +23,7 @@ prepare() {
 
 build() {
   cd build
-  cmake "../${_gitname}" \
+  cmake ../yakuake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

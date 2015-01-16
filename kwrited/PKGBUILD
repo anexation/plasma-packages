@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kwrited
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='Kwrited'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/kde-workspace'
+license=('LGPL')
+depends=('kpty' 'knotifications')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+conflicts=('kwrited-git')
+provides=('kwrited' 'kwrited-git')
+replaces=('kwrited-git')
+source=('git://anongit.kde.org/kwrited.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kwrited/${DIR} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DBUILD_AS_EXECUTABLE=OFF \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="${pkgdir}" install
+}

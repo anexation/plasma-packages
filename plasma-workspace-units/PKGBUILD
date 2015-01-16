@@ -1,5 +1,6 @@
-# Maintainer: Bhushan Shah <bshah@kde.org>
-pkgname=plasma-workspace-units-git
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=plasma-workspace-units
 pkgver=0.01
 pkgrel=1
 arch=("any")
@@ -7,7 +8,9 @@ pkgdesc="systemd user-session units for KDE Frameworks 5 and Plasma 5"
 url="https://github.com/eliasp/plasma-workspace-units"
 license=('GPL')
 depends=('plasma-desktop')
-conflicts=()
+conflicts=('plasma-workspace-units-git')
+provides=('plasma-workspace-units' 'plasma-workspace-units-git')
+replaces=('plasma-workspace-units-git')
 source=("git://github.com/eliasp/plasma-workspace-units.git")
 md5sums=("SKIP") 
 

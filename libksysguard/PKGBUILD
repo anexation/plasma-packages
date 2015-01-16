@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=libksysguard
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='Libksysguard'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/kde-workspace'
+license=('LGPL')
+depends=('libxres' 'plasma-framework' 'qt5-webkit')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+provides=('libksysguard' 'libksysguard-git')
+conflicts=('libksysguard-git' 'kdebase-workspace')
+replaces=('libksysguard-git')
+source=('git://anongit.kde.org/libksysguard.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../libksysguard \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

@@ -1,6 +1,0 @@
-/home/anex/git/plasma-packages/prison-frameworks/src/build/tools/CMakeFiles/prison-datamatrix_automoc.dir
-/home/anex/git/plasma-packages/prison-frameworks/src/build/testapp/CMakeFiles/test-prison.dir
-/home/anex/git/plasma-packages/prison-frameworks/src/build/lib/prison/CMakeFiles/KF5Prison.dir
-/home/anex/git/plasma-packages/prison-frameworks/src/build/lib/prison/CMakeFiles/KF5Prison_automoc.dir
-/home/anex/git/plasma-packages/prison-frameworks/src/build/tools/CMakeFiles/prison-datamatrix.dir
-/home/anex/git/plasma-packages/prison-frameworks/src/build/testapp/CMakeFiles/test-prison_automoc.dir

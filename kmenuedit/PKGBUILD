@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kmenuedit
+pkgver=5.1.99
+pkgrel=1
+pkgdesc='KDE menu editor'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/kde-workspace'
+license=('LGPL')
+depends=('khotkeys')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+conflicts=('kmenuedit-git' 'kdebase-workspace')
+provides=('kmenuedit' 'kmenuedit-git')
+replaces=('kmenuedit-git')
+install=$pkgname.install
+source=('git://anongit.kde.org/kmenuedit.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kmenuedit \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}
