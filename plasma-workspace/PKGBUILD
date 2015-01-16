@@ -10,7 +10,7 @@ license=('LGPL')
 depends=('qt5-tools' 'kded' 'libksysguard' 'kjsembed' 'knotifyconfig' 'ktexteditor' 'kde-cli-tools' 
 'kio-extras' 'baloo-frameworks' 'milou' 'libkscreen-frameworks' 'breeze' 'kwin' 'gpsd' 'libqalculate' 'khelpcenter' 'xorg-xrdb' 
 'xorg-xsetroot' 'xorg-xmessage') # 'prison-frameowrks'
-makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'solid')
 optdepends=('plasma-workspace-wallpapers: additional wallpapers')
 conflicts=('plasma-workspace-git' 'kdebase-workspace')
 provides=('plasma-workspace' 'plasma-workspace-git')
