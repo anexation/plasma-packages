@@ -15,7 +15,6 @@ optdepends=('plasma-workspace-wallpapers: additional wallpapers')
 conflicts=('plasma-workspace-git' 'kdebase-workspace')
 provides=('plasma-workspace' 'plasma-workspace-git')
 replaces=('plasma-workspace-git')
-options=()
 source=('git://anongit.kde.org/plasma-workspace.git')
 md5sums=('SKIP')
 
