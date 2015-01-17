@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=digikam-frameworks
-pkgver=5.1.99
+pkgver=4.99.0
 pkgrel=1
 pkgdesc='Digital photo management application for KDE. KF5 Frameworks branch'
 arch=('i686' 'x86_64')

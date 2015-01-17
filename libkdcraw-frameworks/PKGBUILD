@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=libkdcraw-frameworks
-pkgver=5.1.99
+pkgver=4.99.0
 pkgrel=1
 pkgdesc="A C++ interface used to decode RAW picture. KF5 Frameworks branch"
 url='https://projects.kde.org/projects/kde/kdegraphics/libs/libkdcraw'

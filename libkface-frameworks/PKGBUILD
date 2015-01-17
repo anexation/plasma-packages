@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=libkface-frameworks
-pkgver=5.1.99
+pkgver=4.9.80
 pkgrel=1
 pkgdesc='A Qt/C++ wrapper around LibFace library to perform face recognition and detection over pictures. KF5 Frameworks branch'
 arch=('i686' 'x86_64')

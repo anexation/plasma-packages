@@ -1,7 +1,7 @@
 # Contributor: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=baloo-widgets-frameworks
-pkgver=5.1.99
+pkgver=4.99.0
 pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('i686' 'x86_64')

@@ -1,7 +1,7 @@
 # Maintainer anex <lane.wiscombe[@]gmail.com>
 
 pkgname=kde-syndication
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="RSS/Atom parser library"
 arch=('i686' 'x86_64')

@@ -1,0 +1,38 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kmix
+pkgver=14.12.1
+pkgrel=1
+pkgdesc='KDE volume control program'
+arch=('i686' 'x86_64')
+url='http://kde.org/applications/multimedia/kmix/'
+license=('GPL')
+depends=('kdelibs4support' 'kcmutils' 'libcanberra')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python')
+conflicts=('kdemultimedia-kmix' 'kmix-git')
+provides=('kmix' 'kmix-git')
+replaces=('kmix-git')
+source=("git://anongit.kde.org/kmix.git")
+install=$pkgname.install
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() { 
+  cd build
+  cmake ../kmix \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKMIX_KF5_BUILD=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DSYSCONF_INSTALL_DIR=/etc
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

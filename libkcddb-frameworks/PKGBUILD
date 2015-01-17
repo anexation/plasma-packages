@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=libkcddb-frameworks
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="KDE CDDB library. KF5 Frameworks branch"
 url='https://projects.kde.org/projects/kde/kdemultimedia/libkcddb'
@@ -12,6 +12,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'cmake')
 conflicts=('libkcddb' 'libkcddb-frameworks-git')
 provides=('libkcddb' 'libkcddb-frameworks' 'libkcddb-frameworks-git')
 conflicts=('libkcddb-frameworks-git')
+replaces=('libkcddb-frameworks-git')
 source=("git://anongit.kde.org/libkcddb#branch=kf5")
 sha1sums=('SKIP')
 

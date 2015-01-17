@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=kdenlive-frameworks
-pkgver=5.1.99
+pkgver=0.9.99
 pkgrel=1
 pkgdesc="A non-linear video editor for Linux using the MLT video framework. KF5 Frameworks"
 arch=('i686' 'x86_64')

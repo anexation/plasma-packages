@@ -3,7 +3,7 @@
 pkgname=kdepim-frameworks
 _pkgname=kdepim
 arch=('x86_64')
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
@@ -36,8 +36,7 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DLIB_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDEPIM_BUILD_MOBILE=FALSE
   make 
 }

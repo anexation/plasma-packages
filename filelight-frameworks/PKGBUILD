@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=filelight-frameworks
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="View disk usage information. KF5 Frameworks branch"
 url="http://utils.kde.org/projects/filelight"

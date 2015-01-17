@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=konsole
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('i686' 'x86_64')

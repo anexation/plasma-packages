@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=kio-extras
+pkgver=5.1.99
+pkgrel=1
+pkgdesc="Additional components to increase the functionality of KIO"
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/kde/workspace/kio-extras'
+license=('LGPL')
+depends=('kdelibs4support' 'khtml' 'kdnssd' 'kpty' 'libssh' 'smbclient' 'exiv2' 'openexr' 'libmtp')
+makedepends=('extra-cmake-modules' 'git' 'openslp' 'kdoctools')
+conflicts=('kio-extras-git')
+provides=('kio-extras' 'kio-extras-git')
+replaces=('kio-extras-git')
+install=$pkgname.install
+source=('git://anongit.kde.org/kio-extras.git')
+md5sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../kio-extras/ \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

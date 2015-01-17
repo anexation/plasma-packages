@@ -2,7 +2,7 @@
 
 pkgname=ktnef-frameworks
 _pkgname=ktnef
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="API for handling TNEF data"
 arch=('i686' 'x86_64')

@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=qbittorrent-qt5
-pkgver=3.2.0alpha
+pkgver=r5529.74fcee2
 pkgrel=1
 pkgdesc="A bittorrent client written in C++ / Qt5 using the good libtorrent library"
 arch=('i686' 'x86_64')
@@ -16,6 +16,11 @@ replaces=('qbittorrent-qt5-git')
 install=qbittorrent.install
 source=('git://github.com/qbittorrent/qBittorrent.git')
 md5sums=('SKIP')
+
+pkgver() {
+  cd qBittorrent
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
 
 prepare() {
  # Spoof uTorrent [ change to 'yes' ]

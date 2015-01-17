@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=bluedevil-frameworks
-pkgver=2.1.1
+pkgver=5.1.99
 pkgrel=1
 pkgdesc='KDE bluetooth framework'
 arch=('i686' 'x86_64')

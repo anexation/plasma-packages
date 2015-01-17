@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=audiothumbs-frameworks
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="Plugin for KDE file managers (Dolphin and Konqueror) to preview cover arts embedded in audio (MP3, FLAC, OGG, M4A) files tags as thumbnails."
 arch=('i686' 'x86_64')

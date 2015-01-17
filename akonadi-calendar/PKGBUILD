@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=akonadi-calendar
-pkgver=5.1.99
+pkgver=4.79.0
 pkgrel=1
 pkgdesc="Akonadi calendar integration"
 arch=('i686' 'x86_64')

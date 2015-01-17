@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=libkexiv2-frameworks
-pkgver=5.1.99
+pkgver=4.9.84
 pkgrel=1
 pkgdesc='A wrapper around Exiv2 library to manipulate pictures metadata as EXIF IPTC and XMP. KF5 Frameworks branch.'
 arch=('i686' 'x86_64')

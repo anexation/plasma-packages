@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=libkipi-frameworks
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="A interface to use kipi-plugins from a KDE image management program like digiKam. KF5 Frameworks branch"
 url='http://www.digikam.org/sharedlibs'

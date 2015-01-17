@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=kate
-pkgver=5.1.99
+pkgver=14.2.1
 pkgrel=1
 pkgdesc='An advanced editor component which is used in numerous KDE applications requiring a text editing component'
 arch=('i686' 'x86_64')

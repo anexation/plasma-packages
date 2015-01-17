@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=kcalc-frameworks
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="Scientific Calculator. KF5 Frameworks branch."
 url="https://www.kde.org/applications/utilities/kcalc"

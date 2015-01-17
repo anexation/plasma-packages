@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=kcalcore
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc="The KDE calendar access library"
 arch=('i686' 'x86_64')

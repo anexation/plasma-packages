@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=libksane-frameworks
-pkgver=5.1.99
+pkgver=14.12.1
 pkgrel=1
 pkgdesc='A image scanning library that provides a QWidget that contains all the logic needed to interface a sacanner. KF5 Frameworks branch.'
 arch=('i686' 'x86_64')

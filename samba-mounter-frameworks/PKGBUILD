@@ -1,7 +1,7 @@
 # Maintainer: anex <lane.wiscombe[@]gmail.com>
 
 pkgname=samba-mounter-frameworks
-pkgver=5.1.99
+pkgver=4.99.0
 pkgrel=1
 pkgdesc="User space mount tool for samba"
 url="http://quickgit.kde.org/?p=scratch%2Fafiestas%2Fsamba-mounter.git"
