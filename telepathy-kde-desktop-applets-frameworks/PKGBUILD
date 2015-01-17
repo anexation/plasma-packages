@@ -1,0 +1,34 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=telepathy-kde-desktop-applets-frameworks
+pkgver=0.9.99
+pkgrel=1
+pkgdesc='The KDE-Telepathy Plasma desktop applets'
+arch=('any')
+url='http://community.kde.org/Real-Time_Communication_and_Collaboration'
+license=('GPL')
+depends=('telepathy-kde-common-internals-frameworks' 'telepathy-kde-accounts-kcm-frameworks' 'plasma-workspace')
+makedepends=('extra-cmake-modules' 'git')
+replaces=('telepathy-kde-desktop-applets-git')
+conflicts=('telepathy-kde-desktop-applets-git' 'telepathy-kde-desktop-applets')
+provides=('telepathy-kde-desktop-applets-frameworks' 'telepathy-kde-desktop-applets-git')
+source=("git://anongit.kde.org/ktp-desktop-applets.git")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../ktp-desktop-applets \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="${pkgdir}" install
+}

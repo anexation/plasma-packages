@@ -1,0 +1,26 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=meteo-qt
+pkgver=0.4.3.1
+pkgrel=1
+pkgdesc="System tray application for weather status information."
+arch=(any)
+url="https://github.com/dglent/meteo-qt"
+license=('GPL3')
+makedepends=('git')
+depends=('python' 'python-urllib3' 'python-pyqt5' 'python-lxml')
+optdepends=()
+provides=('meteo-qt' 'meteo-qt-git')
+conflicts=('meteo-qt-qt')
+replaces=('meteo-qt-git')
+backup=()
+options=(!emptydirs)
+source=('git://github.com/dglent/meteo-qt.git')
+md5sums=('SKIP')
+
+package()
+{
+  # Install using setup.py
+  cd "$srcdir/meteo-qt"
+  python3 setup.py install --root="${pkgdir}/" --optimize=1
+}

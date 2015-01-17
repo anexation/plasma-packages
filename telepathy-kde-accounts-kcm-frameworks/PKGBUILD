@@ -1,0 +1,35 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=telepathy-kde-accounts-kcm-frameworks
+pkgver=0.9.99
+pkgrel=1
+pkgdesc='KCM Module for configuring Telepathy Instant Messaging Accounts'
+arch=('i686' 'x86_64')
+url='http://community.kde.org/Real-Time_Communication_and_Collaboration'
+license=('GPL')
+depends=('telepathy-qt5' 'kaccounts-integration')
+makedepends=('extra-cmake-modules' 'git' 'intltool')
+conflicts=('telepathy-kde-accounts-kcm' 'telepathy-kde-accounts-kcm-git')
+replaces=('telepathy-kde-accounts-kcm-git')
+provides=('telepathy-kde-accounts-kcm-frameworks' 'telepathy-kde-accounts-kcm-git')
+source=("git://anongit.kde.org/ktp-accounts-kcm.git")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../ktp-accounts-kcm \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

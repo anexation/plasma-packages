@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=telepathy-kde-text-ui-frameworks
+pkgver=0.9.99
+pkgrel=1
+pkgdesc='Telepathy handler for Text Chats'
+arch=('i686' 'x86_64')
+url='http://community.kde.org/Real-Time_Communication_and_Collaboration'
+license=('GPL')
+depends=('telepathy-kde-common-internals-frameworks')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python')
+conflicts=('telepathy-kde-text-ui' 'telepathy-kde-text-ui-git')
+replaces=('telepathy-kde-text-ui-git')
+provides=('telepathy-kde-text-ui-git' 'telepathy-kde-text-ui-frameworks')
+source=("git://anongit.kde.org/ktp-text-ui.git")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../ktp-text-ui \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="${pkgdir}" install
+}

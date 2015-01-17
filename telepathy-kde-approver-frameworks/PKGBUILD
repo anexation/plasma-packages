@@ -1,0 +1,36 @@
+# Maintainer: anex <lane.wiscombe[@]gmail.com>
+
+pkgname=telepathy-kde-approver-frameworks
+pkgver=0.9.99
+pkgrel=1
+pkgdesc='KDE Channel Approver for Telepathy'
+arch=('i686' 'x86_64')
+url='http://community.kde.org/Real-Time_Communication_and_Collaboration'
+license=('GPL')
+depends=('telepathy-qt5' 'knotifications')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'python')
+conflicts=('telepathy-kde-approver' 'telepathy-kde-approver-git')
+replaces=('telepathy-kde-approver-git')
+provides=('telepathy-kde-approver-frameworks' 'telepathy-kde-approver-git')
+source=("git://anongit.kde.org/ktp-approver.git")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../ktp-approver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DSYSCONF_INSTALL_DIR=/etc 
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}
