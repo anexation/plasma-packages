@@ -55,6 +55,7 @@ kscreen-frameworks
 ksnapshot-frameworks
 ksysguard
 ktnef
+kwayland
 kwin
 kwrited
 kxmlrpcclient
